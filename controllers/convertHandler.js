@@ -72,13 +72,13 @@ function ConvertHandler() {
     let result;
     const galToL = 3.78541;
     const lToGal = 0.26417;
-    const lbsToKg = 0.45359;
-    const kgToLbs = 2.20462;
+    const lbsToKg = 0.453592;
+    const kgToLbs = 2.204624;
     const miToKm = 1.60934;
     const kmToMi = 0.62137;
     let input = ["gal", "l", "mi", "km", "lbs", "kg"];
     let convert = [galToL, lToGal, miToKm, kmToMi, lbsToKg, kgToLbs];
-    result = initNum * convert[input.indexOf(initUnit)];
+    result = (initNum * convert[input.indexOf(initUnit)]).toFixed(5);
     return result;
   };
 
@@ -87,8 +87,9 @@ function ConvertHandler() {
     let initUnitFull = this.spellOutUnit(initUnit);
     let reuturnUnitFull = this.spellOutUnit(returnUnit);
     result = `${initNum} ${initUnitFull} converts to ${returnNum} ${reuturnUnitFull}`;
-    return result.bind(this);
+    return result;
   };
 }
 
+// thi
 module.exports = ConvertHandler;
