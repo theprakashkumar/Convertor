@@ -30,25 +30,34 @@ function ConvertHandler() {
     return result;
   };
 
-//   function to get the unit
+  // function to get the unit
   this.getUnit = function(input) {
     let result;
-    
-//     look for the first index of alphabet
-    let indexOfAl
 
+    // look for the first index of alphabet
+    let indexOfAlpha = input.serach(/[a-zA-Z]/gi);
+
+    // slice from the first index of aplhabet to end of input and change it to be lowercase
+    result = input.slice(indexOfAlpha).toLowerCase();
+
+    // if there is space in unit
+    if (result.split(" ") > 2) return "invalid unit";
     return result;
   };
 
   this.getReturnUnit = function(initUnit) {
     let result;
-
+    var input = ["gal", "l", "mi", "km", "lbs", "kg"];
+    var expect = ["L", "gal", "km", "mi", "kg", "lbs"];
+    result = expect[input.indexOf(initUnit)];
     return result;
   };
 
   this.spellOutUnit = function(unit) {
     let result;
-
+    var input=['gal','l','mi','km','lbs','kg'];
+    var expect=['gallons','liters','miles','kilometers','pounds','kilograms'];
+    resunt \
     return result;
   };
 
