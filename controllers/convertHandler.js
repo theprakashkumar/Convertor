@@ -35,7 +35,7 @@ function ConvertHandler() {
     let result;
 
     // look for the first index of alphabet
-    let indexOfAlpha = input.serach(/[a-zA-Z]/gi);
+    let indexOfAlpha = input.search(/[a-zA-Z]/gi);
 
     // slice from the first index of aplhabet to end of input and change it to be lowercase
     result = input.slice(indexOfAlpha).toLowerCase();
