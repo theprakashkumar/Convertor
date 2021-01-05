@@ -62,16 +62,22 @@ function ConvertHandler() {
   };
 
   this.convert = function(initNum, initUnit) {
-    const galToL = 3.78541;
-    const lbsToKg = 0.453592;
-    const miToKm = 1.60934;
     let result;
-
+    const galToL = 3.78541;
+    const lToGal = 0.26417;
+    const lbsToKg = 0.45359;
+    const kgToLbs = 2.20462;
+    const miToKm = 1.60934;
+    const kmToMi = 0.62137;
+    let input = ['gal','l','mi','km','lbs','kg'];
+    let convert = [galToL, lToGal, miToKm, kmToMi, lbsToKg, kgToLbs];
+    result=initNum*convert[input.indexOf(initUnit)];
     return result;
   };
 
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
     let result;
+    let initUnitFull=this.spellOutUnit()
 
     return result;
   };
