@@ -57,7 +57,7 @@ function ConvertHandler() {
     let result;
     var input=['gal','l','mi','km','lbs','kg'];
     var expect=['gallons','liters','miles','kilometers','pounds','kilograms'];
-    resunt \
+    result=expect[input.indexOf(unit)];
     return result;
   };
 
