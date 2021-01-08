@@ -27,13 +27,19 @@ module.exports = function(app) {
       returnUnit
     );
     console.log("se");
+
     if (initNum === "invalid number") {
-      console.log("invalid")
+      console.log("invalid number")
+      if(initUnit === "invalid unit"){
+        console.log("invalid number and unt")
+        res.json("invalid number and unit");
+      }
       res.json("invalid number");
     } else if (initUnit === "invalid unit") {
-      console.log("invalid")
+      console.log("invalid unit")
       res.json("invalid unit");
     } else {
+      console.log("else ran");
       res.json({
         initNum: initNum,
         initUnit: initUnit,
