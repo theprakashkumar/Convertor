@@ -8,25 +8,38 @@
 
 function ConvertHandler() {
   //   function to the nuber from input
-  this.getNum = function(input) {
-    // look for first alphabet so that we can find the end of nuber
-    let indexOfNums = input.search(/[a-zA-Z]/);
-
+  this.getNum = function (input) {
+    const regexSplit = /[a-z]/i;
     let result;
-    // if there is not a alphabet then set result to 1 else result will the number before the alphabet
-    indexOfNums === -1
-      ? (result = 1)
-      : (result = input.substring(0, indexOfNums));
+    if (regexSplit.test(input) === true) {
+      const indexSplit = input.search(regexSplit);
+      result = input.slice(0, indexSplit);
+    } else {
+      result = input;
+    }
+    const regexNum = /[1-9]\d*(\.\d+)?\/?[1-9]?(\d*)?(\.\d+)?/;
+    const regexDoubleFraction = /\//g;
 
-    // if the length of reuslt is zero then result will be 1
-    if (result.lenght === 0) result = 1;
+    if (result === '') {
+      result = 1;
+      return result;
+    }
 
-    // if there is more than on "/" then return "invalid number"
-    if (result.split("/").length > 2) return "invalid number";
-
-    // if there is more than one decimal then return "invalid number"
-    if (result.split(".").lenght > 2) return "invalid number";
-
+    if (regexNum.test(result) === false) {
+      result = 'invalid number';
+    } else if (
+      result.match(regexDoubleFraction) !== null &&
+      result.match(regexDoubleFraction).length >= 2
+    ) {
+      result = 'invalid number';
+    } else {
+      result = eval(result);
+      const resultString = result.toString();
+      const index = resultString.indexOf('.');
+      if (resultString.length - index - 1 > 5) {
+        result = parseFloat(result.toFixed(5));
+      }
+    }
     return result;
   };
 
@@ -40,14 +53,19 @@ function ConvertHandler() {
     // slice from the first index of aplhabet to end of input and change it to be lowercase
     result = input.slice(indexOfAlpha).toLowerCase();
 
+
     // if there is space in unit
-    if (result.split(" ") > 2) return "invalid unit";
+    if (["gal", "l", "mi", "km", "lbs", "kg"].indexOf(result)===-1) return "invalid unit";
+
+    // for liter
+    if(result==="l") return "L";
+    
     return result;
   };
 
   this.getReturnUnit = function(initUnit) {
     let result;
-    var input = ["gal", "l", "mi", "km", "lbs", "kg"];
+    var input = ["gal", "L", "mi", "km", "lbs", "kg"];
     var expect = ["L", "gal", "km", "mi", "kg", "lbs"];
     result = expect[input.indexOf(initUnit)];
     return result;
@@ -55,7 +73,7 @@ function ConvertHandler() {
 
   this.spellOutUnit = function(unit) {
     let result;
-    var input = ["gal", "l", "mi", "km", "lbs", "kg"];
+    var input = ["gal", "L", "mi", "km", "lbs", "kg"];
     var expect = [
       "gallons",
       "liters",
@@ -71,14 +89,23 @@ function ConvertHandler() {
   this.convert = function(initNum, initUnit) {
     let result;
     const galToL = 3.78541;
-    const lToGal = 0.26417;
+    const lToGal = 1/galToL;
     const lbsToKg = 0.453592;
-    const kgToLbs = 2.204624;
+    const kgToLbs = 1/lbsToKg;
     const miToKm = 1.60934;
-    const kmToMi = 0.62137;
-    let input = ["gal", "l", "mi", "km", "lbs", "kg"];
+    const kmToMi = 1/miToKm;
+    let input = ["gal", "L", "mi", "km", "lbs", "kg"];
     let convert = [galToL, lToGal, miToKm, kmToMi, lbsToKg, kgToLbs];
-    result = (initNum * convert[input.indexOf(initUnit)]).toFixed(5);
+    result = initNum * convert[input.indexOf(initUnit)];
+    
+    if (result !== 'invalid number') {
+      const resultString = result.toString();
+      const index = resultString.indexOf('.');
+      if (resultString.length - index - 1 > 5) {
+        result = Number.parseFloat(result.toFixed(5));
+      }
+    }
+    
     return result;
   };
 
