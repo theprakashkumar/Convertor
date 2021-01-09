@@ -26,25 +26,28 @@ module.exports = function(app) {
       returnNum,
       returnUnit
     );
-    console.log("se");
+    console.log("se", initNum, input);
+    
+    
+    if (initNum === 'invalid number' && initUnit === 'invalid unit') {
+        res.json('invalid number and unit');
+    }
 
-    if (initNum === "invalid number") {
-      console.log("invalid number")
-      if(initUnit === "invalid unit"){
-        console.log("invalid number and unt")
-        res.json("invalid number and unit");
-      }
-      res.json("invalid number");
-    } else if (initUnit === "invalid unit") {
-      console.log("invalid unit")
-      res.json("invalid unit");
-    } else {
-      console.log("else ran");
+    if (initNum === 'invalid number' && initUnit !== 'invalid unit') {
+      res.json('invalid number');
+    }
+
+    if (initNum !== 'invalid number' && initUnit === 'invalid unit') {
+      res.json('invalid unit');
+    }
+    
+    if (initNum !== 'invalid number' && initUnit !== 'invalid unit') {
+      console.log("Else")
       res.json({
-        initNum: initNum,
-        initUnit: initUnit,
-        returnNum: returnNum,
-        returnUnit: returnUnit,
+        initNum,
+        initUnit,
+        returnNum,
+        returnUnit,
         string: toString
       });
     }
